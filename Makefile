@@ -6,7 +6,7 @@
 #    By: plavaux <plavaux@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/05 11:13:35 by plavaux           #+#    #+#              #
-#    Updated: 2014/11/22 16:19:37 by plavaux          ###   ########.fr        #
+#    Updated: 2014/11/22 21:25:46 by plavaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,4 +35,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+norme:
+	@norminette $(SRC)
+
+.PHONY: all clean fclean re norme
