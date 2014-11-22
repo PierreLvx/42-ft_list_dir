@@ -17,7 +17,7 @@ A minimal Travis CI setup is included. It'll only check for successful builds, a
 Usage
 ---
 
-	$ ./ft_list_dir <directory name>
+	$ ./ft_list_dir [-p] <directory name>
 
 Contributing
 ---

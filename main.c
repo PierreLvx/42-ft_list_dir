@@ -21,17 +21,20 @@
 #include <sys/stat.h>
 #include "libft/libft.h"
 
-static void			print_item(char *item, int folder)
+static void			print_item(char *item, char *args, int folder)
 {
 	if (folder)
 	{
 		ft_putstr("\033[34m\033[1m");
 		ft_putstr(item);
+		if (args)
+			if (ft_strchr(args, 'p'))
+				ft_putchar('/');
 		ft_putendl("\033[0m");
 	}
 }
 
-int					list_dir(char *path)
+int					list_dir(char *args, char *path)
 {
 	DIR				*dir;
 	struct dirent	*dp;
@@ -50,7 +53,7 @@ int					list_dir(char *path)
 		if ((int)ft_strlen(dp->d_name) == 1 && dp->d_name[0] == '.')
 			continue;
 		if (dp->d_name[1] != '.')
-			(S_ISDIR (st_buf.st_mode)) ? print_item(dp->d_name, 1)
+			(S_ISDIR (st_buf.st_mode)) ? print_item(dp->d_name, args, 1)
 				: ft_putendl(dp->d_name);
 	}
 	if (closedir(dir) == -1)
@@ -62,9 +65,25 @@ int					main(int argc, char **argv)
 {
 	if (argc < 2)
 	{
-		ft_putendl("Usage: ft_list_dir <directory name>");
+		ft_putendl("Usage: ft_list_dir [-p] <directory name>");
 		return (-1);
 	}
-	list_dir(argv[1]);
+	if (argc > 3)
+	{
+		ft_putendl("Too many arguments.");
+		return (-1);
+	}
+	if (argc < 3)
+		list_dir(NULL, argv[1]);
+	if (argc == 3)
+	{
+		if (!ft_strchr(argv[1], '-') && !ft_strchr(argv[1], 'p'))
+		{
+			ft_putendl("Invalid argument(s).");
+			return (-1);
+		}
+		else
+			list_dir(argv[1], argv[2]);
+	}
 	return (0);
 }
