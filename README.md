@@ -14,6 +14,11 @@ If you are browsing this repo, chances are you're a 42 student yourself, and wor
 
 A minimal Travis CI setup is included. It'll only check for successful builds, and doesn't ensure proper operation of the project like unit tests would.
 
+Usage
+---
+
+	$ ./ft_list_dir <directory name>
+
 Contributing
 ---
 
