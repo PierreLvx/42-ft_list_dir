@@ -6,7 +6,7 @@
 /*   By: plavaux <plavaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/22 14:47:35 by plavaux           #+#    #+#             */
-/*   Updated: 2014/11/22 20:36:24 by plavaux          ###   ########.fr       */
+/*   Updated: 2014/11/22 21:42:24 by plavaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,43 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <errno.h>
+#include <sys/stat.h>
 #include "libft/libft.h"
+
+static void			print_item(char *item, int folder)
+{
+	if (folder)
+	{
+		ft_putstr("\033[34m\033[1m");
+		ft_putstr(item);
+		ft_putendl("\033[0m");
+	}
+}
 
 int					list_dir(char *path)
 {
 	DIR				*dir;
 	struct dirent	*dp;
+	int				status;
+	struct stat		st_buf;
 
+	(void)status;
 	if (!(dir = opendir(path)))
 	{
 		perror("opendir failed");
 		return (0);
 	}
-	ft_putendl("\033[32mOpened directory stream.\033[0m");
 	while ((dp = readdir(dir)))
 	{
+		status = stat(dp->d_name, &st_buf);
 		if ((int)ft_strlen(dp->d_name) == 1 && dp->d_name[0] == '.')
 			continue;
 		if (dp->d_name[1] != '.')
-			ft_putendl(dp->d_name);
+			(S_ISDIR (st_buf.st_mode)) ? print_item(dp->d_name, 1)
+				: ft_putendl(dp->d_name);
 	}
 	if (closedir(dir) == -1)
-	{
 		perror("closedir failed");
-		return (0);
-	}
-	ft_putendl("\033[32mClosed directory stream.\033[0m");
 	return (0);
 }
 
