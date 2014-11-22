@@ -10,4 +10,6 @@ compiler: gcc
 
 script:
 #   - cppcheck --enable=warning,style,performance,portability,missingInclude --std=c89 *.c -q
+    - cd libft && make && cd ..
     - make
+    - ft_list_dir libft/
