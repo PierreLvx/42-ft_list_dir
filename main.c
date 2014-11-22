@@ -6,7 +6,7 @@
 /*   By: plavaux <plavaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/22 14:47:35 by plavaux           #+#    #+#             */
-/*   Updated: 2014/11/22 16:18:14 by plavaux          ###   ########.fr       */
+/*   Updated: 2014/11/22 20:36:24 by plavaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 #include <dirent.h>
 #include <stdio.h>
-#include <sys/types.h>
 #include <errno.h>
 #include "libft/libft.h"
 
