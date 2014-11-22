@@ -12,6 +12,7 @@
 
 /*
 ** <stdio.h> is required for perror.
+** FYI: http://www.gnu.org/software/libc/manual/html_node/Testing-File-Type.html
 */
 
 #include <dirent.h>
