@@ -6,7 +6,7 @@
 /*   By: plavaux <plavaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/22 14:47:35 by plavaux           #+#    #+#             */
-/*   Updated: 2014/11/22 21:42:24 by plavaux          ###   ########.fr       */
+/*   Updated: 2014/11/26 15:26:50 by plavaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,19 @@ int					list_dir(char *args, char *path)
 	while ((dp = readdir(dir)))
 	{
 		status = stat(dp->d_name, &st_buf);
-		if ((int)ft_strlen(dp->d_name) == 1 && dp->d_name[0] == '.')
+		if (!ft_strcmp(dp->d_name, ".") || !ft_strcmp(dp->d_name, ".."))
 			continue;
-		if (dp->d_name[1] != '.')
-			(S_ISDIR (st_buf.st_mode)) ? print_item(dp->d_name, args, 1)
-				: ft_putendl(dp->d_name);
+		(S_ISDIR (st_buf.st_mode)) ? print_item(dp->d_name, args, 1)
+			: ft_putendl(dp->d_name);
 	}
 	if (closedir(dir) == -1)
 		perror("closedir failed");
 	return (0);
+}
+
+int					args_check(char *args)
+{
+	return (!ft_strchr(args, '-') || !ft_strchr(args, 'p'));
 }
 
 int					main(int argc, char **argv)
@@ -77,7 +81,7 @@ int					main(int argc, char **argv)
 		list_dir(NULL, argv[1]);
 	if (argc == 3)
 	{
-		if (!ft_strchr(argv[1], '-') && !ft_strchr(argv[1], 'p'))
+		if (args_check(argv[1]))
 		{
 			ft_putendl("Invalid argument(s).");
 			return (-1);
